@@ -53,8 +53,15 @@
                  portType="tns:ecuaciones"
                  operation="process" variable="input"
                  createInstance="yes"/>
-        <bpel:empty name="FIX_ME-Add_Business_Logic_Here"></bpel:empty>
+        
         <!-- Generate reply to synchronous request -->
+        <bpel:if name="Selector de grado">
+            <bpel:else>
+                <bpel:if name="Primer grado o Nulo">
+                    <bpel:else></bpel:else>
+                </bpel:if>
+            </bpel:else>
+        </bpel:if>
         <bpel:reply name="replyOutput" 
                partnerLink="client"
                portType="tns:ecuaciones"
