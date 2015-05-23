@@ -56,18 +56,26 @@
         
         <!-- Generate reply to synchronous request -->
         <bpel:if name="Selector de grado">
+            <bpel:sequence>
+                <bpel:assign validate="no" name="ResuelveSegundo"></bpel:assign>
+                <bpel:reply name="replyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+            </bpel:sequence>
             <bpel:else>
                 <bpel:if name="Primer grado o Nulo">
-                    <bpel:else></bpel:else>
+                    <bpel:sequence>
+                        <bpel:assign validate="no" name="ResuelvePrimero"></bpel:assign>
+                        <bpel:reply name="ReplyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                    </bpel:sequence>
+                    <bpel:else>
+                        <bpel:sequence>
+                            <bpel:assign validate="no" name="NoPosible"></bpel:assign>
+                            <bpel:reply name="ReplyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                        </bpel:sequence>
+                    </bpel:else>
                 </bpel:if>
             </bpel:else>
         </bpel:if>
-        <bpel:reply name="replyOutput" 
-               partnerLink="client"
-               portType="tns:ecuaciones"
-               operation="process" 
-               variable="output"
-               />
+        
     </bpel:sequence>
 </bpel:process>
 
