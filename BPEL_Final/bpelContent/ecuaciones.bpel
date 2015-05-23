@@ -55,7 +55,7 @@
                  createInstance="yes"/>
         
         <!-- Generate reply to synchronous request -->
-        <bpel:if name="Selector de grado">
+        <bpel:if name="Selector_Grado">
             <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('output','payload','/tns:X2')!=0]]></bpel:condition>
             <bpel:sequence>
                 <bpel:assign validate="no" name="ResuelveSegundo">
@@ -72,7 +72,190 @@
                     <bpel:copy>
                         <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                             
-                            <![CDATA[(-bpel:getVariableData('input','payload','/tns:X')+sqrt(bpel:getVariableData('input','payload','tns:X')*bpel:getVariableData('input','payload','tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))/2*bpel:getVariableData('input','payload','/tns:X2')]]>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <![CDATA[((-1)*bpel:getVariableData('input','payload','/tns:X')+sqrt(bpel:getVariableData('input','payload','/tns:X')*bpel:getVariableData('input','payload','/tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))div(2*bpel:getVariableData('input','payload','/tns:X2'))]]>
                         </bpel:from>
                         <bpel:to part="payload" variable="output">
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
@@ -84,7 +267,14 @@
                         <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                             
                             
-                            <![CDATA[(-bpel:getVariableData('input','payload','/tns:X')-sqrt(bpel:getVariableData('input','payload','tns:X')*bpel:getVariableData('input','payload','tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))/2*bpel:getVariableData('input','payload','/tns:X2')]]>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            <![CDATA[((-1)*bpel:getVariableData('input','payload','/tns:X')-sqrt(bpel:getVariableData('input','payload','/tns:X')*bpel:getVariableData('input','payload','/tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))div(2*bpel:getVariableData('input','payload','/tns:X2'))]]>
                         </bpel:from>
                         <bpel:to part="payload" variable="output">
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado2]]></bpel:query>
@@ -147,7 +337,7 @@
                 <bpel:reply name="replyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
             </bpel:sequence>
             <bpel:else>
-                <bpel:if name="Primer grado o Nulo">
+                <bpel:if name="Primero_Nulo">
                     <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('output','payload','/tns:X')!=0]]></bpel:condition>
                     <bpel:sequence>
                         <bpel:assign validate="no" name="ResuelvePrimero">
@@ -162,7 +352,12 @@
                             </bpel:copy>
                             <bpel:copy>
                                 <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
-                                    <![CDATA[-bpel:getVariableData('input','payload','/tns:Ind')/-bpel:getVariableData('input','payload','/tns:X')]]>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    <![CDATA[(-1)*bpel:getVariableData('input','payload','/tns:Ind')div(bpel:getVariableData('input','payload','/tns:X'))]]>
                                 </bpel:from>
                                 <bpel:to part="payload" variable="output">
                                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado1]]></bpel:query>

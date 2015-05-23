@@ -22,7 +22,7 @@
   </extensions>
   <extensions>
     <extendedObject href="ecuaciones.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1432373740000"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1432374759000"/>
   </extensions>
   <extensions>
     <extendedObject href="ecuaciones.bpel#//@activity/@activities.1"/>
