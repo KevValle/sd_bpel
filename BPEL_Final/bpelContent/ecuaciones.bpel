@@ -60,15 +60,7 @@
             <bpel:sequence>
                 <bpel:assign validate="no" name="ResuelveSegundo">
                     
-                    <bpel:copy>
-                        <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:alerta>tns:alerta</tns:alerta>
-  <tns:resultado1>0.0</tns:resultado1>
-  <tns:resultado2>0.0</tns:resultado2>
-</tns:ecuacionesResponse>
-</bpel:literal></bpel:from>
-                        <bpel:to variable="output" part="payload"></bpel:to>
-                    </bpel:copy>
+                    
                     <bpel:copy>
                         <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                             
@@ -341,15 +333,7 @@
                     <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('output','payload','/tns:X')!=0]]></bpel:condition>
                     <bpel:sequence>
                         <bpel:assign validate="no" name="ResuelvePrimero">
-                            <bpel:copy>
-                                <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:alerta>tns:alerta</tns:alerta>
-  <tns:resultado1>0.0</tns:resultado1>
-  <tns:resultado2>0.0</tns:resultado2>
-</tns:ecuacionesResponse>
-</bpel:literal></bpel:from>
-                                <bpel:to variable="output" part="payload"></bpel:to>
-                            </bpel:copy>
+                            
                             <bpel:copy>
                                 <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                                     
@@ -416,21 +400,23 @@
                                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:alerta]]></bpel:query>
                                 </bpel:to>
                             </bpel:copy>
+                            <bpel:copy>
+                                <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                    
+                                    
+                                    <![CDATA[0.0]]>
+                                </bpel:from>
+                                <bpel:to part="payload" variable="output">
+                                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado2]]></bpel:query>
+                                </bpel:to>
+                            </bpel:copy>
                         </bpel:assign>
                         <bpel:reply name="ReplyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
                     </bpel:sequence>
                     <bpel:else>
                         <bpel:sequence>
                             <bpel:assign validate="no" name="NoPosible">
-                                <bpel:copy>
-                                    <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:alerta>tns:alerta</tns:alerta>
-  <tns:resultado1>0.0</tns:resultado1>
-  <tns:resultado2>0.0</tns:resultado2>
-</tns:ecuacionesResponse>
-</bpel:literal></bpel:from>
-                                    <bpel:to variable="output" part="payload"></bpel:to>
-                                </bpel:copy>
+                                
                                 <bpel:copy>
                                     <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                                         
@@ -483,6 +469,25 @@
                                     </bpel:from>
                                     <bpel:to part="payload" variable="output">
                                         <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:alerta]]></bpel:query>
+                                    </bpel:to>
+                                </bpel:copy>
+                                <bpel:copy>
+                                    <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                        
+                                        
+                                        <![CDATA[0.0]]>
+                                    </bpel:from>
+                                    <bpel:to part="payload" variable="output">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado1]]></bpel:query>
+                                    </bpel:to>
+                                </bpel:copy>
+                                <bpel:copy>
+                                    <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                        
+                                        
+                                        <![CDATA[0.0]]>
+                                    </bpel:from>
+                                    <bpel:to part="payload" variable="input">
                                     </bpel:to>
                                 </bpel:copy>
                             </bpel:assign>

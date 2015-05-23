@@ -97,7 +97,7 @@
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <service name="ecuacionesService">
     	<port name="ecuacionesPort" binding="tns:ecuacionesBinding">
-    		<soap:address location="http://localhost:8080/pde/processes/ecuaciones" />
+    		<soap:address location="http://localhost:8080/ode/processes/ecuaciones" />
     	</port>
     </service>
 </definitions>
