@@ -288,7 +288,9 @@
                             
                             
                             
-                            <![CDATA[((-1)*bpel:getVariableData('input','payload','/tns:X')+(bpel:getVariableData('input','payload','/tns:X')*bpel:getVariableData('input','payload','/tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))div(2*bpel:getVariableData('input','payload','/tns:X2'))]]>
+                            
+                            
+                            <![CDATA[((-1)*bpel:getVariableData('input','payload','/tns:X')-(bpel:getVariableData('input','payload','/tns:X')*bpel:getVariableData('input','payload','/tns:X')-4*bpel:getVariableData('input','payload','/tns:X2')*bpel:getVariableData('input','payload','/tns:Ind')))div(2*bpel:getVariableData('input','payload','/tns:X2'))]]>
                         </bpel:from>
                         <bpel:to part="payload" variable="output">
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado2]]></bpel:query>
