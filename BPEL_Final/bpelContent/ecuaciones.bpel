@@ -57,7 +57,7 @@
         <!-- Generate reply to synchronous request -->
         
         <bpel:if name="Selector_Grado">
-            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X2')>0]]></bpel:condition>
+            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X2')!=0]]></bpel:condition>
             <bpel:sequence>
                 <bpel:assign validate="no" name="ResuelveSegundo">
                     
@@ -356,7 +356,7 @@
             </bpel:sequence>
             <bpel:else>
                 <bpel:if name="Primero_Nulo">
-                    <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X')>0]]></bpel:condition>
+                    <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X')!=0]]></bpel:condition>
                     <bpel:sequence>
                         <bpel:assign validate="no" name="ResuelvePrimero">
                             
