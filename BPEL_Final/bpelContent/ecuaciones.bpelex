@@ -22,7 +22,7 @@
   </extensions>
   <extensions>
     <extendedObject href="ecuaciones.bpel#/"/>
-    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1432657114000"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:ProcessExtension" modificationStamp="1432658603000"/>
   </extensions>
   <extensions>
     <extendedObject href="ecuaciones.bpel#//@activity/@activities.1"/>
@@ -85,7 +85,7 @@
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
-    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.0"/>
+    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.1"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
@@ -93,11 +93,11 @@
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
-    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.1"/>
+    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.2"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
-    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.2"/>
+    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.3"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
   <extensions>
@@ -106,6 +106,10 @@
   </extensions>
   <extensions>
     <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@activity/@activities.0/@copy.0"/>
+    <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
+  </extensions>
+  <extensions>
+    <extendedObject href="ecuaciones.bpel#//@activity/@activities.1/@else/@activity/@else/@activity/@activities.0/@copy.0"/>
     <extensionObject xsi:type="org.eclipse.bpel.ui.uiextensionmodel:CopyExtension"/>
   </extensions>
 </extensionmodel:ExtensionMap>
