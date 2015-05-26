@@ -55,12 +55,22 @@
                  createInstance="yes"/>
         
         <!-- Generate reply to synchronous request -->
+        
         <bpel:if name="Selector_Grado">
             <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('output','payload','/tns:X2')!=0]]></bpel:condition>
             <bpel:sequence>
                 <bpel:assign validate="no" name="ResuelveSegundo">
                     
                     
+                    <bpel:copy>
+                        <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:alerta>tns:alerta</tns:alerta>
+  <tns:resultado1>0.0</tns:resultado1>
+  <tns:resultado2>0.0</tns:resultado2>
+</tns:ecuacionesResponse>
+</bpel:literal></bpel:from>
+                        <bpel:to variable="output" part="payload"></bpel:to>
+                    </bpel:copy>
                     <bpel:copy>
                         <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                             
@@ -325,8 +335,10 @@
                             <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:alerta]]></bpel:query>
                         </bpel:to>
                     </bpel:copy>
+                    
+                    
                 </bpel:assign>
-                <bpel:reply name="replyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                <bpel:reply name="replySegundo" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
             </bpel:sequence>
             <bpel:else>
                 <bpel:if name="Primero_Nulo">
@@ -334,6 +346,15 @@
                     <bpel:sequence>
                         <bpel:assign validate="no" name="ResuelvePrimero">
                             
+                            <bpel:copy>
+                                <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:alerta>tns:alerta</tns:alerta>
+  <tns:resultado1>0.0</tns:resultado1>
+  <tns:resultado2>0.0</tns:resultado2>
+</tns:ecuacionesResponse>
+</bpel:literal></bpel:from>
+                                <bpel:to variable="output" part="payload"></bpel:to>
+                            </bpel:copy>
                             <bpel:copy>
                                 <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                                     
@@ -410,8 +431,10 @@
                                     <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:resultado2]]></bpel:query>
                                 </bpel:to>
                             </bpel:copy>
+                            
+                            
                         </bpel:assign>
-                        <bpel:reply name="ReplyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                        <bpel:reply name="ReplyPrimero" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
                     </bpel:sequence>
                     <bpel:else>
                         <bpel:sequence>
@@ -487,11 +510,14 @@
                                         
                                         <![CDATA[0.0]]>
                                     </bpel:from>
-                                    <bpel:to part="payload" variable="input">
+                                    <bpel:to part="payload" variable="output">
+                                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                            <![CDATA[tns:resultado2]]>
+                                        </bpel:query>
                                     </bpel:to>
                                 </bpel:copy>
                             </bpel:assign>
-                            <bpel:reply name="ReplyOutput" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                            <bpel:reply name="ReplyNo" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
                         </bpel:sequence>
                     </bpel:else>
                 </bpel:if>
