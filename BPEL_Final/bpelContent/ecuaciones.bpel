@@ -5,10 +5,11 @@
          suppressJoinFailure="yes"
          xmlns:tns="http://ws.ecuaciones.tps"
          xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
-         >
+         xmlns:ns="http://www.webservicex.net/">
 
     <!-- Import the client WSDL -->
-	<bpel:import location="ecuacionesArtifacts.wsdl" namespace="http://ws.ecuaciones.tps" 
+    <bpel:import namespace="http://www.webservicex.net/" location="geoipservice.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import location="ecuacionesArtifacts.wsdl" namespace="http://ws.ecuaciones.tps" 
 	        importType="http://schemas.xmlsoap.org/wsdl/" />
          
     <!-- ================================================================= -->         
@@ -21,6 +22,7 @@
                      partnerLinkType="tns:ecuaciones"
                      myRole="ecuacionesProvider"
                      />
+        <bpel:partnerLink name="GeoPL" partnerLinkType="tns:GeoPLT" partnerRole="GeoRole"></bpel:partnerLink>
     </bpel:partnerLinks>
   
     <!-- ================================================================= -->         
@@ -37,6 +39,8 @@
           -->
         <bpel:variable name="output"
                   messageType="tns:ecuacionesResponseMessage"/>
+        <bpel:variable name="GeoPLResponse" messageType="ns:GetGeoIPContextSoapOut"></bpel:variable>
+        <bpel:variable name="GeoPLRequest" messageType="ns:GetGeoIPContextSoapIn"></bpel:variable>
     </bpel:variables>
 
     <!-- ================================================================= -->         
@@ -49,6 +53,7 @@
         <!-- Receive input from requester. 
              Note: This maps to operation defined in ecuaciones.wsdl 
              -->
+        
         <bpel:receive name="receiveInput" partnerLink="client"
                  portType="tns:ecuaciones"
                  operation="process" variable="input"
@@ -56,21 +61,48 @@
         
         <!-- Generate reply to synchronous request -->
         
-        <bpel:if name="Selector_Grado">
-            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X2')!=0]]></bpel:condition>
-            <bpel:sequence>
-                <bpel:assign validate="no" name="ResuelveSegundo">
-                    
-                    
-                    <bpel:copy>
-                        <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        
+        
+        
+        <bpel:assign validate="no" name="AssigntoGeo"><bpel:copy><bpel:from><bpel:literal><tns:GetGeoIPContext xmlns:tns="http://www.webservicex.net/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"></tns:GetGeoIPContext>
+
+</bpel:literal></bpel:from>
+                <bpel:to variable="GeoPLRequest" part="parameters"></bpel:to>
+            
+                    </bpel:copy>
+                
+                
+        </bpel:assign>
+        <bpel:invoke name="InvokeGEOIP" partnerLink="GeoPL" operation="GetGeoIPContext" portType="ns:GeoIPServiceSoap" inputVariable="GeoPLRequest" outputVariable="GeoPLResponse"></bpel:invoke>
+        <bpel:assign validate="no" name="AssignToOutput">
+            <bpel:copy>
+                <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <tns:alerta>tns:alerta</tns:alerta>
   <tns:resultado1>0.0</tns:resultado1>
   <tns:resultado2>0.0</tns:resultado2>
+  <tns:IP>tns:IP</tns:IP>
 </tns:ecuacionesResponse>
 </bpel:literal></bpel:from>
-                        <bpel:to variable="output" part="payload"></bpel:to>
-                    </bpel:copy>
+                <bpel:to variable="output" part="payload"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="parameters" variable="GeoPLResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[ns:GetGeoIPContextResult/ns:IP]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="payload" variable="output">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[tns:IP]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:if name="Selector_Grado">
+            <bpel:condition expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[bpel:getVariableData('input','payload','/tns:X2')!=0]]></bpel:condition>
+            <bpel:sequence>
+                
+                
+                <bpel:assign validate="no" name="ResuelveSegundo">
+                    
+                    
+                    
                     <bpel:copy>
                         <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                             
@@ -351,8 +383,11 @@
                     </bpel:copy>
                     
                     
+                    
+                    
                 </bpel:assign>
                 <bpel:reply name="replySegundo" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
+                
             </bpel:sequence>
             <bpel:else>
                 <bpel:if name="Primero_Nulo">
@@ -360,15 +395,7 @@
                     <bpel:sequence>
                         <bpel:assign validate="no" name="ResuelvePrimero">
                             
-                            <bpel:copy>
-                                <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:alerta>tns:alerta</tns:alerta>
-  <tns:resultado1>0.0</tns:resultado1>
-  <tns:resultado2>0.0</tns:resultado2>
-</tns:ecuacionesResponse>
-</bpel:literal></bpel:from>
-                                <bpel:to variable="output" part="payload"></bpel:to>
-                            </bpel:copy>
+                            
                             <bpel:copy>
                                 <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                                     
@@ -447,6 +474,7 @@
                             </bpel:copy>
                             
                             
+                            
                         </bpel:assign>
                         <bpel:reply name="ReplyPrimero" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
                     </bpel:sequence>
@@ -454,15 +482,7 @@
                         <bpel:sequence>
                             <bpel:assign validate="no" name="NoPosible">
                                 
-                                <bpel:copy>
-                                    <bpel:from><bpel:literal><tns:ecuacionesResponse xmlns:tns="http://ws.ecuaciones.tps" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <tns:alerta>tns:alerta</tns:alerta>
-  <tns:resultado1>0.0</tns:resultado1>
-  <tns:resultado2>0.0</tns:resultado2>
-</tns:ecuacionesResponse>
-</bpel:literal></bpel:from>
-                                    <bpel:to variable="output" part="payload"></bpel:to>
-                                </bpel:copy>
+                                
                                 <bpel:copy>
                                     <bpel:from expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
                                         
@@ -539,6 +559,7 @@
                                         </bpel:query>
                                     </bpel:to>
                                 </bpel:copy>
+                                
                                 
                             </bpel:assign>
                             <bpel:reply name="ReplyNo" partnerLink="client" portType="tns:ecuaciones" operation="process" variable="output" />
